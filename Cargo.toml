@@ -1,0 +1,21 @@
+[package]
+name = "ignition-positions-value"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# The gateway client uses to make calls to the gateway in Rust.
+gateway-client = { git = "https://github.com/0xOmarA/radix-gateway-client", rev = "d9c15757e9e1029bce9c0f4ca13f41f6401beda0" }
+
+# A crate with macros that allow for compile-time bech32m decoding of Radix 
+# addresses.
+address-macros = { git = "https://github.com/0xOmarA/radix-address-macros", branch = "main" }
+
+# Scrypto and Radix Engine Dependencies.
+sbor = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.1" }
+transaction = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.1" }
+radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.1" }
+radix-engine-interface = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.1" }
+
+# A crate required for hex encoding and decoding.
+hex = { version = "0.4.3" }
