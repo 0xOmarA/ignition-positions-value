@@ -1,10 +1,18 @@
 # Ignition Position Values Reference Implementation
 
-This repository contains a reference implementation for a Rust crate that finds the value of an Ignition position if it were to be closed now. 
+This repository contains a reference implementation for a Rust crate that finds the value of an Ignition position if it were to be closed now. The following is an example of the output printed to stdout when this program is run:
+
+```
+Ignition liquidity position global id: resource_rdx1n2uzpxdlg90ajqy9r597xkffeefhacl8hqd6kpvmfmt56wlda0dzk9:{29de6fbdb0ba2dda-4c3c88c857022ead-a5c6381a54f02f2c-bd1e1eea22df0ea8}
+Amount of user resources contributed: 164.594975000000000001
+XRD that goes to user: 0
+User resource that goes to user: 165.20549688339038141
+User resource fees given to user: 0.610521883390381409
+```
 
 ## Running This Example
 
-* Change some of the constants in the [`constants.rs`](./src/constants.rs) with information relevant to the exchange that the position was opened in. More specifically, the `EXCHANGE_ADAPTER_COMPONENT_ADDRESS` and the `EXCHANGE_LIQUIDITY_RECEIPT_RESOURCE_ADDRESS` should be changed. A full list of the addresses can be found in the [Ignition Addresses](#ignition-addresses) section of this document.
+* Change some of the constants in the [`constants.rs`](./src/constants.rs) with information relevant to the exchange that the position was opened in. More specifically, the [`EXCHANGE_ADAPTER_COMPONENT_ADDRESS`](./src/constants.rs#L27) and the [`EXCHANGE_LIQUIDITY_RECEIPT_RESOURCE_ADDRESS`](./src/constants.rs#L32) should be changed. A full list of the addresses can be found in the [Ignition Addresses](#ignition-addresses) section of this document.
 * Change the `NonFungibleLocalId` in the [`main.rs`](./src/main.rs#L19) file with the local id of the Ignition liquidity position you wish to get the value of.
 * Run the crate through `cargo run`.
 
