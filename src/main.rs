@@ -45,7 +45,7 @@ fn main() {
             "withdraw_pool_units",
             (NonFungibleGlobalId::new(
                 EXCHANGE_LIQUIDITY_RECEIPT_RESOURCE_ADDRESS,
-                position_non_fungible_local_id,
+                position_non_fungible_local_id.clone(),
             ),),
         )
         // Step 2: Close the liquidity position through the adapter and not
@@ -181,6 +181,20 @@ fn main() {
     // to the user if this position was closed now. If the XRD given to the user
     // is 0 then it means that there was no need for IL protection to kick in so
     // they were just given their initial amount + user resource fees.
+    println!(
+        "Ignition liquidity position global id: {}",
+        NonFungibleGlobalId::new(
+            EXCHANGE_LIQUIDITY_RECEIPT_RESOURCE_ADDRESS,
+            position_non_fungible_local_id
+        )
+        .to_canonical_string(&AddressBech32Encoder::new(
+            &NetworkDefinition::mainnet()
+        ))
+    );
+    println!(
+        "Amount of user resources contributed: {}",
+        liquidity_receipt_data.user_contribution_amount
+    );
     println!(
         "XRD that goes to user: {amount_of_protocol_resource_to_give_user}",
     );
