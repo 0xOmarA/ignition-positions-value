@@ -3,7 +3,6 @@ mod sbor;
 mod state;
 mod types;
 
-use address_macros::*;
 use constants::*;
 use radix_engine::system::system_modules::execution_trace::*;
 use radix_engine_interface::prelude::*;
@@ -20,9 +19,6 @@ fn main() {
         "{29de6fbdb0ba2dda-4c3c88c857022ead-a5c6381a54f02f2c-bd1e1eea22df0ea8}",
     )
     .unwrap();
-    let position_owner_account_address = component_address!(
-        "account_rdx12xdqgpz638aazhmk8hmw45dpq08vwt0enmy766kcn2k3zya98hq34z"
-    );
 
     // Reading the liquidity receipt non-fungible data of the position. This is
     // done to get the pool address and user resource address.
@@ -61,8 +57,11 @@ fn main() {
                 ),
             ),
         )
-        // Step 3: Deposit the resources back into the owner's account
-        .deposit_batch(position_owner_account_address)
+        // Step 3: Deposit the resources into an account - we do this just so
+        // that the execution does not fail due to the dangling buckets.
+        .deposit_batch(ComponentAddress::virtual_account_from_public_key(
+            &Ed25519PrivateKey::from_u64(1).unwrap().public_key(),
+        ))
         // Step 4: Get the price of the user resource from the oracle. This is
         // used later on in the Ignition settlement logic.
         .call_method(
