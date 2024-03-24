@@ -3,11 +3,21 @@
 This repository contains a reference implementation for a Rust crate that finds the value of an Ignition position if it were to be closed now. The following is an example of the output printed to stdout when this program is run:
 
 ```
+=============== Position Information ===============
 Ignition liquidity position global id: resource_rdx1n2uzpxdlg90ajqy9r597xkffeefhacl8hqd6kpvmfmt56wlda0dzk9:{29de6fbdb0ba2dda-4c3c88c857022ead-a5c6381a54f02f2c-bd1e1eea22df0ea8}
-Amount of user resources contributed: 164.594975000000000001
-XRD that goes to user: 0
-User resource that goes to user: 165.20549688339038141
-User resource fees given to user: 0.610521883390381409
+User Resource: resource_rdx1th88qcj5syl9ghka2g9l7tw497vy5x6zaatyvgfkwcfe8n9jt2npww
+Protocol Resource: resource_rdx1tknxxxxxxxxxradxrdxxxxxxxxx009923554798xxxxxxxxxradxrd
+=============== Contribution Information ===============
+User Resources Contributed: 164.594975000000000001
+Protocol Resources Contributed (Matched by Ignition): 9873499.95965547607010251
+=============== Settlement Information ===============
+Position Can be Settled At: 1734106584
+Protocol Resource Going to User: 0
+User Resource Going to User: 165.201069757214958388
+Protocol Resource Going to Ignition: 8661340.76231596666686851
+User Resource Going to Ignition: 22.238058269617220404
+IL Protection Kicked in: false
+User resource fees given to user: 0.606094757214958387
 ```
 
 ## Running This Example

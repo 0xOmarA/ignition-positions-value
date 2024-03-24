@@ -180,25 +180,70 @@ fn main() {
     // to the user if this position was closed now. If the XRD given to the user
     // is 0 then it means that there was no need for IL protection to kick in so
     // they were just given their initial amount + user resource fees.
+    let encoder = AddressBech32Encoder::new(&NetworkDefinition::mainnet());
+    println!("{0:=<15} Position Information {0:=<15}", "");
     println!(
         "Ignition liquidity position global id: {}",
         NonFungibleGlobalId::new(
             EXCHANGE_LIQUIDITY_RECEIPT_RESOURCE_ADDRESS,
             position_non_fungible_local_id
         )
-        .to_canonical_string(&AddressBech32Encoder::new(
-            &NetworkDefinition::mainnet()
-        ))
+        .to_canonical_string(&encoder)
     );
     println!(
-        "Amount of user resources contributed: {}",
+        "User Resource: {}",
+        encoder
+            .encode(
+                &liquidity_receipt_data
+                    .user_resource_address
+                    .into_node_id()
+                    .0
+            )
+            .unwrap()
+    );
+    println!(
+        "Protocol Resource: {}",
+        encoder.encode(&XRD.into_node_id().0).unwrap()
+    );
+
+    println!("{0:=<15} Contribution Information {0:=<15}", "");
+    println!(
+        "User Resources Contributed: {}",
         liquidity_receipt_data.user_contribution_amount
     );
     println!(
-        "XRD that goes to user: {amount_of_protocol_resource_to_give_user}",
+        "Protocol Resources Contributed (Matched by Ignition): {}",
+        liquidity_receipt_data.protocol_contribution_amount
+    );
+
+    println!("{0:=<15} Settlement Information {0:=<15}", "");
+    println!(
+        "Position Can be Settled At: {}",
+        liquidity_receipt_data
+            .maturity_date
+            .seconds_since_unix_epoch
     );
     println!(
-        "User resource that goes to user: {amount_of_user_resource_to_give_user}",
+        "Protocol Resource Going to User: {amount_of_protocol_resource_to_give_user}",
+    );
+    println!(
+        "User Resource Going to User: {amount_of_user_resource_to_give_user}",
+    );
+    println!(
+        "Protocol Resource Going to Ignition: {}",
+        protocol_resource_bucket_amount
+            .checked_sub(amount_of_protocol_resource_to_give_user)
+            .unwrap()
+    );
+    println!(
+        "User Resource Going to Ignition: {}",
+        user_resource_bucket_amount
+            .checked_sub(amount_of_user_resource_to_give_user)
+            .unwrap()
+    );
+    println!(
+        "IL Protection Kicked in: {}",
+        amount_of_protocol_resource_to_give_user > dec!(0)
     );
 
     // Printing the amount that they got in fees. As mentioned in the previous
